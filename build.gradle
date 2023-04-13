@@ -46,8 +46,8 @@ if(project.tasks.findByName("wrapper") == null) {
     }
 }
 
-String modVersion = property("modVersion")
-String basicVersion = "${modVersion}." + (System.env.BUILD_NUMBER ?: "homebaked") + (property("releaseType") != 'release' ? "-${property("releaseType")}" : '')
+String modVersion = System.env.SEMVER ?: property("modVersion")
+String basicVersion = "${modVersion}" + (property("releaseType") != 'release' ? "-${property("releaseType")}" : '')
 version = "${property("minecraftVersion")}-${basicVersion}"
 group = "novamachina.${project.name.toLowerCase()}"
 archivesBaseName = property("artifactBasename")
@@ -176,7 +176,7 @@ repositories {
     }
     maven {
         name 'NovaMachina Mods'
-        url 'https://repo.jacob-williams.me/repository/internal/'
+        url 'https://dl.cloudsmith.io/public/novamachina-mods/ex-nihilo-sequentia/maven/'
         content {
             includeGroup 'novamachina.exnihilosequentia'
         }
@@ -295,10 +295,11 @@ publishing {
     }
     repositories {
         maven {
-            url = "https://repo.jacob-williams.me/repository/internal"
+            name = "cloudsmith"
+            url = "https://maven.cloudsmith.io/novamachina-mods/ex-nihilo-sequentia/"
             credentials {
-                username = System.getenv("NEXUS_USERNAME")
-                password = System.getenv("NEXUS_PASSWORD")
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
             }
         }
     }
@@ -483,11 +484,12 @@ if(rootProject.name != project.name) {
         comment('''This file may have been edited by a Gradle Task.
 
 A note on the 'modVersion' property
-Version pattern: MAJORMOD.MAJORAPI.MINOR.PATCH (Only MAJORMOD.MAJORAPI.MINOR are declared here)
-Update MAJORMOD when mod objects (items, blocks, block entities) are removed or fundamental mechanics are changed
-Update MAJORAPI when any part of the mod's public-facing API is change (reordering enums, changing method signatures, or removal of public methods)
+Version pattern: MAJOR.MINOR.PATCH
+Update MAJORMOD when mod objects (items, blocks, block entities) are removed, fundamental mechanics are changed, or backwards compatibility is broken.
 Update MINOR when mod objects (items, blocks, block entities) or non-fundamental mechanics are added, or elements of the API are deprecated (but not removed)
-PATCH will automatically be appended to the version and handled by Jenkins''')
+PATCH will automatically be created by GitVersion
+
+The value in gradle.properties is only used in local development''')
     }
 }
 
@@ -501,14 +503,4 @@ Map<String, Object> getProps(File propFile) {
         })
     }
     return mappedProps
-}
-
-task modifyPipeline(type: Copy) {
-    group = "management"
-    description = "Modifies build pipeline with selected variables"
-
-    from 'azure-pipelines-template.yml'
-    rename '.*', 'azure-pipelines.yml'
-    destinationDir projectDir
-    expand ("modVersion": project.property("modVersion"))
 }
