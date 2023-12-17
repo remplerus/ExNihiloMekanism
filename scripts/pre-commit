@@ -1,8 +1,12 @@
-#/bin/sh
-echo "*****Running Linter******"
-git stash -q --keep-index
+#!/bin/sh
+
+stagedFiles=$(git diff --staged --name-only)
+
+echo "Running spotlessApply. Formatting code..."
 ./gradlew spotlessApply
-status=$?
-git stash pop -q
-echo "*****Done running Linter******"
-exit $status
+
+for file in $stagedFiles; do
+  if test -f "$file"; then
+    git add "$file"
+  fi
+done

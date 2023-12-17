@@ -16,24 +16,26 @@ Ex Nihilo: Sequentia - Mekanism Addon is on the NovaMachina Mods [discord server
 
 # Translating
 
-If you would like to help translate Ex Nihilo: Sequentia - Mekanism Addon, you can do so through [Crowdin](https://crowdin.com/project/ex-nihilo-sequentia).
+If you would like to help translate Ex Nihilo: Sequentia, please create a pull request with your translation.
 
 # License
 
 [![](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+The source code of this work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+Artwork of this mod is licensed under an All rights reserved license: Copyright &copy;2023 NovaMachina-Mods All rights reserved.
 
 # Maven
 
-Ex Nihilo: Sequentia - Mekanism Addon is avaliable via the [NovaMachina Mods artifact repository](https://repo.jacob-williams.me/#browse) for developers wishing to utilize its API.
+Ex Nihilo: Sequentia - Mekanism Addon is avaliable via the [NovaMachina Mods artifact repository](https://cloudsmith.io/~novamachina-mods/repos/ex-nihilo-sequentia/packages/) for developers wishing to utilize its API.
 
 Add the following to your `build.gradle`:
 
 ```groovy
 repositories {
     maven {
-        url = "https://repo.jacob-williams.me/repository/internal/"
+        url = "https://dl.cloudsmith.io/public/novamachina-mods/ex-nihilo-sequentia/maven/"
 
     }
 }
@@ -43,13 +45,11 @@ dependencies {
 }
 ```
 
-Add the following to your `gradle.properties` (see [Maven](https://repo.jacob-williams.me/#artifact/novamachina.exnihilomekanism/ExNihiloMekanism) for the list of available versions):
+Add the following to your `gradle.properties` (see [Maven](https://cloudsmith.io/~novamachina-mods/repos/ex-nihilo-sequentia/packages/) for the list of available versions):
 
 ```properties
 exnihilo_version: 1.19.2-4.1.0.55-beta
 ```
-
-*** SOON ***
 
 [![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com)
 
