@@ -8,8 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import novamachina.exnihilomekanism.common.utility.ExNihiloMekanismConstants;
-import novamachina.exnihilosequentia.common.init.ExNihiloInitialization;
-import novamachina.exnihilosequentia.common.utility.ExNihiloLogger;
+import org.slf4j.Logger;
 
 public class ExNihiloMekanismItems {
 
@@ -19,8 +18,8 @@ public class ExNihiloMekanismItems {
   public static final RegistryObject<Item> OSMIUM_PIECES =
       ITEMS.register(
           "osmium_pieces",
-          () -> new Item(new Item.Properties().tab(ExNihiloInitialization.ITEM_GROUP)));
-  @Nonnull private static final ExNihiloLogger logger = new ExNihiloLogger(LogUtils.getLogger());
+          () -> new Item(new Item.Properties()));
+  @Nonnull private static final Logger logger = LogUtils.getLogger();
 
   public static void init(IEventBus modEventBus) {
     logger.debug("Register items");

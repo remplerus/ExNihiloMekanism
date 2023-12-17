@@ -7,15 +7,15 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import novamachina.exnihilomekanism.common.utility.ExNihiloMekanismConstants;
-import novamachina.exnihilosequentia.common.init.ExNihiloItems;
-import novamachina.exnihilosequentia.common.utility.ExNihiloLogger;
+import novamachina.exnihilosequentia.world.item.EXNItems;
+import org.slf4j.Logger;
 
 @Mod.EventBusSubscriber(
     modid = ExNihiloMekanismConstants.ModIds.EX_NIHILO_MEKANISM,
     bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ExNihiloMekanismInitialization {
 
-  private static final ExNihiloLogger logger = new ExNihiloLogger(LogUtils.getLogger());
+  private static final Logger logger = LogUtils.getLogger();
 
   private ExNihiloMekanismInitialization() {}
 
@@ -31,9 +31,9 @@ public class ExNihiloMekanismInitialization {
   }
 
   private static void enableOres() {
-    ExNihiloItems.TIN.setEnabled(true);
-    ExNihiloItems.COPPER.setEnabled(true);
-    ExNihiloItems.URANIUM.setEnabled(true);
-    ExNihiloItems.LEAD.setEnabled(true);
+    EXNItems.TIN.setEnabled(true);
+    EXNItems.COPPER.setEnabled(true);
+    EXNItems.URANIUM.setEnabled(true);
+    EXNItems.LEAD.setEnabled(true);
   }
 }
