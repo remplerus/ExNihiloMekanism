@@ -1,79 +1,76 @@
 package novamachina.exnihilomekanism.datagen.common;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 import javax.annotation.Nullable;
 import mekanism.common.registries.MekanismItems;
 import mekanism.common.resource.PrimaryResource;
 import mekanism.common.resource.ResourceType;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import novamachina.exnihilomekanism.common.init.ExNihiloMekanismItems;
 import novamachina.exnihilomekanism.common.utility.ExNihiloMekanismConstants.ModIds;
-import novamachina.exnihilosequentia.common.crafting.sieve.MeshWithChance;
-import novamachina.exnihilosequentia.common.crafting.sieve.SieveRecipeBuilder;
-import novamachina.exnihilosequentia.common.item.mesh.MeshType;
-import novamachina.exnihilosequentia.datagen.api.datagen.AbstractRecipeGenerator;
+import novamachina.exnihilosequentia.data.recipes.RecipeProviderUtilities;
+import novamachina.exnihilosequentia.data.recipes.SiftingRecipeBuilder;
+import novamachina.exnihilosequentia.world.item.MeshType;
+import novamachina.exnihilosequentia.world.item.crafting.MeshWithChance;
+import novamachina.novacore.data.recipes.RecipeProvider;
 import org.jetbrains.annotations.NotNull;
 
-public class ExNihiloMekanismRecipeGenerator extends AbstractRecipeGenerator {
+import static novamachina.exnihilosequentia.data.recipes.RecipeProviderUtilities.prependRecipePrefix;
 
-  public ExNihiloMekanismRecipeGenerator(DataGenerator generator) {
-    super(generator, ModIds.EX_NIHILO_MEKANISM);
+public class ExNihiloMekanismRecipeGenerator extends RecipeProvider {
+
+  public ExNihiloMekanismRecipeGenerator(PackOutput generator, ExistingFileHelper helper) {
+    super(generator, helper, ModIds.EX_NIHILO_MEKANISM);
   }
 
   @Override
-  protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
+  protected void addRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
     registerCrafting(consumer);
     registerSieve(consumer);
   }
 
   private void registerCrafting(Consumer<FinishedRecipe> consumer) {
     Item item = ExNihiloMekanismItems.OSMIUM_PIECES.get();
-    ShapedRecipeBuilder.shaped(
-            MekanismItems.PROCESSED_RESOURCES.get(ResourceType.RAW, PrimaryResource.OSMIUM))
+    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Objects.requireNonNull(MekanismItems.PROCESSED_RESOURCES.get(ResourceType.RAW, PrimaryResource.OSMIUM)))
         .pattern("xx")
         .pattern("xx")
         .define('x', item)
         .unlockedBy("has_piece", InventoryChangeTrigger.TriggerInstance.hasItems(item))
-        .save(
-            consumer,
-            new ResourceLocation(
-                ModIds.EX_NIHILO_MEKANISM,
+        .save(consumer, new ResourceLocation(ModIds.EX_NIHILO_MEKANISM,
                 prependRecipePrefix(ForgeRegistries.ITEMS.getKey(item).getPath())));
   }
 
   private void registerSieve(Consumer<FinishedRecipe> consumer) {
-    @Nullable final Item osmiumPiece = ExNihiloMekanismItems.OSMIUM_PIECES.get();
-    if (osmiumPiece == null) {
-      return;
-    }
-    SieveRecipeBuilder.builder()
-        .input(Ingredient.of(Blocks.GRAVEL))
-        .drop(osmiumPiece)
-        .addRoll(new MeshWithChance(MeshType.IRON, 0.05F))
-        .addRoll(new MeshWithChance(MeshType.DIAMOND, 0.1F))
-        .build(consumer, sieveLoc("osmium_pieces"));
+	@Nullable final Item osmiumPiece = ExNihiloMekanismItems.OSMIUM_PIECES.get();
+	SiftingRecipeBuilder.sifting(Ingredient.of(Blocks.GRAVEL), osmiumPiece)
+		.addRoll(new MeshWithChance(MeshType.IRON, 0.05F))
+		.addRoll(new MeshWithChance(MeshType.DIAMOND, 0.1F))
+		.build(consumer, siftingLoc("osmium_pieces"));
 
-    SieveRecipeBuilder.builder()
-        .input(Ingredient.of(Blocks.GRAVEL))
-        .drop(MekanismItems.FLUORITE_GEM.asItem())
-        .addRoll(new MeshWithChance(MeshType.IRON, 0.025F))
-        .addRoll(new MeshWithChance(MeshType.DIAMOND, 0.05F))
-        .build(consumer, sieveLoc(MekanismItems.FLUORITE_GEM.getRegistryName().getPath()));
+	SiftingRecipeBuilder.sifting(Ingredient.of(Blocks.GRAVEL), MekanismItems.FLUORITE_GEM.asItem())
+	  .addRoll(new MeshWithChance(MeshType.IRON, 0.025F))
+	  .addRoll(new MeshWithChance(MeshType.DIAMOND, 0.05F))
+	  .build(consumer, siftingLoc(MekanismItems.FLUORITE_GEM.getRegistryName().getPath()));
 
-    SieveRecipeBuilder.builder()
-        .input(Ingredient.of(Blocks.SAND))
-        .drop(MekanismItems.SALT.asItem())
-        .addRoll(new MeshWithChance(MeshType.FLINT, 0.01F))
-        .addRoll(new MeshWithChance(MeshType.IRON, 0.02F))
-        .addRoll(new MeshWithChance(MeshType.DIAMOND, 0.4F))
-        .build(consumer, sieveLoc(MekanismItems.SALT.getRegistryName().getPath()));
+	SiftingRecipeBuilder.sifting(Ingredient.of(Blocks.SAND), MekanismItems.SALT.asItem())
+	  .addRoll(new MeshWithChance(MeshType.FLINT, 0.01F))
+	  .addRoll(new MeshWithChance(MeshType.IRON, 0.02F))
+	  .addRoll(new MeshWithChance(MeshType.DIAMOND, 0.4F))
+	  .build(consumer, siftingLoc(MekanismItems.SALT.getRegistryName().getPath()));
   }
+
+	private ResourceLocation siftingLoc(String id) {
+		return new ResourceLocation("exnihilosequentia", "sifting/" + RecipeProviderUtilities.prependRecipePrefix(id));
+	}
 }

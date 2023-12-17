@@ -1,10 +1,10 @@
 modLoader = "javafml" #mandatory
-loaderVersion = "${loader_version}" #mandatory
+loaderVersion = "47" #mandatory
 license = "Creative Commons"
 issueTrackerURL = "${git_url}/issues" #optional
 [[mods]] #mandatory
 modId = "exnihilomekanism" #mandatory
-version = "${version}" #mandatory
+version = "5.0.0" #mandatory
 displayName = "Ex Nihilo: Sequentia - Mekanism Addon" #mandatory
 displayURL = "${curseforge_url}" #optional
 logoFile = "logo.png" #optional
@@ -17,12 +17,18 @@ description = '''
 [[dependencies.exnihilomekanism]]
 modId = "exnihilosequentia"
 mandatory = true
-versionRange = "${ex_nihilo_version}"
+versionRange = "[0,)"
+ordering = "AFTER"
+side = "BOTH"
+[[dependencies.exnihilomekanism]]
+modId = "novacore"
+mandatory = true
+versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"
 [[dependencies.exnihilomekanism]]
 modId = "mekanism"
 mandatory = true
-versionRange = "${mekanism_version}"
+versionRange = "[0,)"
 ordering = "AFTER"
 side = "BOTH"
