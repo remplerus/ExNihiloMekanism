@@ -3,6 +3,8 @@ package novamachina.exnihilomekanism.datagen.common;
 import java.util.Objects;
 import java.util.function.Consumer;
 import javax.annotation.Nullable;
+
+import mekanism.common.registries.MekanismBlocks;
 import mekanism.common.registries.MekanismItems;
 import mekanism.common.resource.PrimaryResource;
 import mekanism.common.resource.ResourceType;
@@ -19,6 +21,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import novamachina.exnihilomekanism.common.init.ExNihiloMekanismItems;
 import novamachina.exnihilomekanism.common.utility.ExNihiloMekanismConstants.ModIds;
+import novamachina.exnihilosequentia.common.utility.ExNihiloConstants;
+import novamachina.exnihilosequentia.data.recipes.HeatRecipeBuilder;
 import novamachina.exnihilosequentia.data.recipes.RecipeProviderUtilities;
 import novamachina.exnihilosequentia.data.recipes.SiftingRecipeBuilder;
 import novamachina.exnihilosequentia.world.item.MeshType;
@@ -38,9 +42,15 @@ public class ExNihiloMekanismRecipeGenerator extends RecipeProvider {
   protected void addRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
     registerCrafting(consumer);
     registerSieve(consumer);
+	registerHeat(consumer);
   }
 
-  private void registerCrafting(Consumer<FinishedRecipe> consumer) {
+	private void registerHeat(Consumer<FinishedRecipe> consumer) {
+		HeatRecipeBuilder.heat(MekanismBlocks.SUPERHEATING_ELEMENT.getBlock(), 10)
+			.build(consumer, heatLoc("superheating_element"));
+	}
+
+	private void registerCrafting(Consumer<FinishedRecipe> consumer) {
     Item item = ExNihiloMekanismItems.OSMIUM_PIECES.get();
     ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Objects.requireNonNull(MekanismItems.PROCESSED_RESOURCES.get(ResourceType.RAW, PrimaryResource.OSMIUM)))
         .pattern("xx")
@@ -52,8 +62,7 @@ public class ExNihiloMekanismRecipeGenerator extends RecipeProvider {
   }
 
   private void registerSieve(Consumer<FinishedRecipe> consumer) {
-	@Nullable final Item osmiumPiece = ExNihiloMekanismItems.OSMIUM_PIECES.get();
-	SiftingRecipeBuilder.sifting(Ingredient.of(Blocks.GRAVEL), osmiumPiece)
+	SiftingRecipeBuilder.sifting(Ingredient.of(Blocks.GRAVEL), ExNihiloMekanismItems.OSMIUM_PIECES.get())
 		.addRoll(new MeshWithChance(MeshType.IRON, 0.05F))
 		.addRoll(new MeshWithChance(MeshType.DIAMOND, 0.1F))
 		.build(consumer, siftingLoc("osmium_pieces"));
@@ -71,6 +80,9 @@ public class ExNihiloMekanismRecipeGenerator extends RecipeProvider {
   }
 
 	private ResourceLocation siftingLoc(String id) {
-		return new ResourceLocation("exnihilosequentia", "sifting/" + RecipeProviderUtilities.prependRecipePrefix(id));
+		return new ResourceLocation(ModIds.EX_NIHILO_MEKANISM, "sifting/" + RecipeProviderUtilities.prependRecipePrefix(id));
+	}
+	private ResourceLocation heatLoc(String id) {
+		return new ResourceLocation(ModIds.EX_NIHILO_MEKANISM, "heat/" + RecipeProviderUtilities.prependRecipePrefix(id));
 	}
 }
