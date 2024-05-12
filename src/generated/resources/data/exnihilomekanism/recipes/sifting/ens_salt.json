@@ -4,7 +4,8 @@
     "item": "minecraft:sand"
   },
   "result": {
-    "item": "mekanism:salt"
+    "Count": 1,
+    "id": "mekanism:salt"
   },
   "rolls": [
     {
@@ -19,5 +20,6 @@
       "chance": 0.4,
       "mesh": "diamond"
     }
-  ]
+  ],
+  "waterlogged": false
 }

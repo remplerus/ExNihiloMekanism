@@ -3,11 +3,11 @@ package novamachina.exnihilomekanism.common.init;
 import com.mojang.logging.LogUtils;
 import javax.annotation.Nonnull;
 
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import novamachina.exnihilomekanism.common.utility.ExNihiloMekanismConstants;
 import novamachina.exnihilosequentia.world.item.EXNCreativeModeTabs;
 import novamachina.exnihilosequentia.world.item.EXNItems;

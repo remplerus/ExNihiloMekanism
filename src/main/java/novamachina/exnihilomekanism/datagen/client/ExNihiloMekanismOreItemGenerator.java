@@ -1,11 +1,12 @@
 package novamachina.exnihilomekanism.datagen.client;
 
 import javax.annotation.Nullable;
+
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import novamachina.exnihilomekanism.common.init.ExNihiloMekanismItems;
 import novamachina.exnihilomekanism.common.utility.ExNihiloMekanismConstants;
 
@@ -23,14 +24,11 @@ public class ExNihiloMekanismOreItemGenerator extends ItemModelProvider {
   protected void registerModels() {
     @Nullable
     final ResourceLocation resourceLocation =
-        ForgeRegistries.ITEMS.getKey(ExNihiloMekanismItems.OSMIUM_PIECES.get());
-    if (resourceLocation == null) {
-      return;
-    }
+        BuiltInRegistries.ITEM.getKey(ExNihiloMekanismItems.OSMIUM_PIECES.get());
     singleTexture(
-        resourceLocation.getPath(),
-        new ResourceLocation(ITEM_GENERATED_TAG),
-        LAYER_0_TAG,
-        new ResourceLocation(modid, "item/ore/piece/" + resourceLocation.getPath()));
+      resourceLocation.getPath(),
+      new ResourceLocation(ITEM_GENERATED_TAG),
+      LAYER_0_TAG,
+      new ResourceLocation(modid, "item/ore/piece/" + resourceLocation.getPath()));
   }
 }

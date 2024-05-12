@@ -16,19 +16,19 @@ description = '''
     '''
 [[dependencies.exnihilomekanism]]
 modId = "exnihilosequentia"
-mandatory = true
+type = "required"
 versionRange = "${exnihilo_range}"
 ordering = "AFTER"
 side = "BOTH"
 [[dependencies.exnihilomekanism]]
 modId = "novacore"
-mandatory = true
+type = "required"
 versionRange = "${nova_core_range}"
 ordering = "AFTER"
 side = "BOTH"
 [[dependencies.exnihilomekanism]]
 modId = "mekanism"
-mandatory = true
+type = "required"
 versionRange = "${mekanism_range}"
 ordering = "AFTER"
 side = "BOTH"

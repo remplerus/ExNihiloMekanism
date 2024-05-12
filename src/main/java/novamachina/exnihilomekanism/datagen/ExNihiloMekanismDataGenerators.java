@@ -3,9 +3,9 @@ package novamachina.exnihilomekanism.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import novamachina.exnihilomekanism.datagen.client.ExNihiloMekanismLangGenerator;
 import novamachina.exnihilomekanism.datagen.client.ExNihiloMekanismOreItemGenerator;
 import novamachina.exnihilomekanism.datagen.common.ExNihiloMekanismItemTagGenerator;
@@ -26,7 +26,7 @@ public class ExNihiloMekanismDataGenerators {
 
     if (event.includeServer()) {
       // Recipes
-      generator.addProvider(true, new ExNihiloMekanismRecipeGenerator(packoutput, event.getExistingFileHelper()));
+      generator.addProvider(true, new ExNihiloMekanismRecipeGenerator(packoutput));
       // Tags
       generator.addProvider(true, new ExNihiloMekanismItemTagGenerator(packoutput, lookupProvider, event.getExistingFileHelper()));
     }

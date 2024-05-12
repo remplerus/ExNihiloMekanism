@@ -4,7 +4,8 @@
     "item": "minecraft:gravel"
   },
   "result": {
-    "item": "mekanism:fluorite_gem"
+    "Count": 1,
+    "id": "mekanism:fluorite_gem"
   },
   "rolls": [
     {
@@ -15,5 +16,6 @@
       "chance": 0.05,
       "mesh": "diamond"
     }
-  ]
+  ],
+  "waterlogged": false
 }

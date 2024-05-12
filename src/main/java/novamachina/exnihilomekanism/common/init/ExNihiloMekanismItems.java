@@ -2,20 +2,20 @@ package novamachina.exnihilomekanism.common.init;
 
 import com.mojang.logging.LogUtils;
 import javax.annotation.Nonnull;
+
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import novamachina.exnihilomekanism.common.utility.ExNihiloMekanismConstants;
 import org.slf4j.Logger;
 
 public class ExNihiloMekanismItems {
 
   private static final DeferredRegister<Item> ITEMS =
-      DeferredRegister.create(
-          ForgeRegistries.ITEMS, ExNihiloMekanismConstants.ModIds.EX_NIHILO_MEKANISM);
-  public static final RegistryObject<Item> OSMIUM_PIECES =
+      DeferredRegister.create(BuiltInRegistries.ITEM, ExNihiloMekanismConstants.ModIds.EX_NIHILO_MEKANISM);
+  public static final DeferredHolder<Item, Item> OSMIUM_PIECES =
       ITEMS.register(
           "osmium_pieces",
           () -> new Item(new Item.Properties()));

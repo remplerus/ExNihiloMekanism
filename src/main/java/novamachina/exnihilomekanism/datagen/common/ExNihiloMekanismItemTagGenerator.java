@@ -1,10 +1,8 @@
 package novamachina.exnihilomekanism.datagen.common;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import novamachina.exnihilomekanism.common.init.ExNihiloMekanismItems;
 import novamachina.exnihilomekanism.common.utility.ExNihiloMekanismConstants;
 import novamachina.exnihilosequentia.tags.ExNihiloTags;
